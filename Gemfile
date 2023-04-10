@@ -6,6 +6,13 @@ ruby "2.7.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
+group :development, :test do
+  # testing / linting
+  gem 'rspec-rails', '~> 4.0'
+  gem 'factory_bot_rails', '~> 5.2'
+  gem 'rubocop', '~> 0.85.1', require: false
+end
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
