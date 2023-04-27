@@ -16,8 +16,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_162110) do
 
   create_table "roses", force: :cascade do |t|
     t.text "name"
-    t.uuid "species_id"
-    t.uuid "variety_id"
     t.text "primary_color"
     t.text "accent_color"
     t.float "location_x"
@@ -27,8 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_162110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_roses_on_name", unique: true
-    t.index ["species_id"], name: "index_roses_on_species_id"
-    t.index ["variety_id"], name: "index_roses_on_variety_id"
   end
 
 end
