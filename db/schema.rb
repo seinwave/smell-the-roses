@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_27_161524) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_162110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "roses", force: :cascade do |t|
-    t.uuid "private_id"
     t.text "name"
     t.uuid "species_id"
     t.uuid "variety_id"

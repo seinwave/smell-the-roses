@@ -1,7 +1,6 @@
 class CreateRoses < ActiveRecord::Migration[7.0]
   def change
     create_table :roses do |t|
-      t.uuid :private_id
       t.text :name
       t.uuid :species_id
       t.uuid :variety_id
