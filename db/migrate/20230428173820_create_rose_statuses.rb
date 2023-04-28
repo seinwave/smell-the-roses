@@ -3,7 +3,7 @@ class CreateRoseStatuses < ActiveRecord::Migration[7.0]
     create_table :rose_statuses do |t|
       t.timestamps
       t.references :rose, null: false, foreign_key: true
-      t.integer :status, null: false, default: 0
+      t.integer :status_type, null: false, default: 0
     end
   end
 end
