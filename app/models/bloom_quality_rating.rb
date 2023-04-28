@@ -1,0 +1,2 @@
+class BloomQualityRating < ApplicationRecord
+end

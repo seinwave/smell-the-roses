@@ -1,0 +1,2 @@
+class ScentRating < ApplicationRecord
+end
