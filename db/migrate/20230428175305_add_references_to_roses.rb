@@ -5,6 +5,5 @@ class AddReferencesToRoses < ActiveRecord::Migration[7.0]
     add_column :roses, :variety_id, :integer
     add_foreign_key :roses, :varieties
     add_column :roses, :species_id, :integer
-    add_column :roses, :is_deleted, :boolean, default: false
   end
 end

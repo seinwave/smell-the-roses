@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_174739) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_175305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_174739) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "variety_id"
+    t.integer "species_id"
     t.index ["name"], name: "index_roses_on_name", unique: true
   end
 
@@ -138,6 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_174739) do
   add_foreign_key "photos", "roses"
   add_foreign_key "photos", "users"
   add_foreign_key "rose_statuses", "roses"
+  add_foreign_key "roses", "users"
+  add_foreign_key "roses", "varieties"
   add_foreign_key "scent_ratings", "roses"
   add_foreign_key "scent_ratings", "users"
   add_foreign_key "tags", "roses"
