@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_173157) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_174739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bloom_color_ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "rose_id", null: false
+    t.integer "rating", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_bloom_color_ratings_on_rose_id"
+    t.index ["user_id"], name: "index_bloom_color_ratings_on_user_id"
+    t.check_constraint "rating >= 1 AND rating <= 5"
+  end
+
+  create_table "bloom_quality_ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "rose_id", null: false
+    t.integer "rating", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_bloom_quality_ratings_on_rose_id"
+    t.index ["user_id"], name: "index_bloom_quality_ratings_on_user_id"
+    t.check_constraint "rating >= 1 AND rating <= 5"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
@@ -41,6 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_173157) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
+  create_table "rose_statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "rose_id", null: false
+    t.integer "status_type", default: 0, null: false
+    t.index ["rose_id"], name: "index_rose_statuses_on_rose_id"
+  end
+
   create_table "roses", force: :cascade do |t|
     t.text "name"
     t.text "primary_color"
@@ -52,6 +82,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_173157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_roses_on_name", unique: true
+  end
+
+  create_table "scent_ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "rose_id", null: false
+    t.integer "rating", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_scent_ratings_on_rose_id"
+    t.index ["user_id"], name: "index_scent_ratings_on_user_id"
+    t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
   create_table "species", force: :cascade do |t|
@@ -88,9 +129,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_173157) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bloom_color_ratings", "roses"
+  add_foreign_key "bloom_color_ratings", "users"
+  add_foreign_key "bloom_quality_ratings", "roses"
+  add_foreign_key "bloom_quality_ratings", "users"
   add_foreign_key "favorites", "roses"
   add_foreign_key "favorites", "users"
   add_foreign_key "photos", "roses"
   add_foreign_key "photos", "users"
+  add_foreign_key "rose_statuses", "roses"
+  add_foreign_key "scent_ratings", "roses"
+  add_foreign_key "scent_ratings", "users"
   add_foreign_key "tags", "roses"
 end
