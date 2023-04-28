@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_155104) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_172322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "photos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "rose_id", null: false
+    t.string "photo_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_photos_on_rose_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
+  end
 
   create_table "roses", force: :cascade do |t|
     t.text "name"
@@ -45,5 +55,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_155104) do
     t.index ["rose_id"], name: "index_tags_on_rose_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.boolean "is_admin"
+    t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_tags_on_rose_id"
+  end
+
+  add_foreign_key "photos", "roses"
+  add_foreign_key "photos", "users"
   add_foreign_key "tags", "roses"
 end
