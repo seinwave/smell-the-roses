@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_172322) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_173157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "rose_id", null: false
+    t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_favorites_on_rose_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "photos", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -62,9 +79,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_172322) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rose_id"], name: "index_tags_on_rose_id"
   end
 
+  create_table "varieties", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "favorites", "roses"
+  add_foreign_key "favorites", "users"
   add_foreign_key "photos", "roses"
   add_foreign_key "photos", "users"
   add_foreign_key "tags", "roses"
