@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_172322) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["rose_id"], name: "index_tags_on_rose_id"
   end
 
   add_foreign_key "photos", "roses"
