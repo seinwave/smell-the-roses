@@ -1,0 +1,2 @@
+class BloomColorRating < ApplicationRecord
+end
