@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_153525) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_153850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,19 +64,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_153525) do
   end
 
   create_table "plants", force: :cascade do |t|
-    t.text "name"
-    t.text "primary_color"
-    t.text "accent_color"
     t.float "location_x"
     t.float "location_y"
-    t.date "acquired_date"
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "variety_id"
-    t.integer "species_id"
-    t.index ["name"], name: "index_plants_on_name", unique: true
   end
 
   create_table "rose_statuses", force: :cascade do |t|
