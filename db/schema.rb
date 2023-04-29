@@ -80,6 +80,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
+  create_table "plant_statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "plant_id", null: false
+    t.integer "status_type", default: 0, null: false
+    t.index ["plant_id"], name: "index_plant_statuses_on_plant_id"
+  end
+
   create_table "plants", force: :cascade do |t|
     t.float "location_x"
     t.float "location_y"
@@ -107,14 +115,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
     t.string "common_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "statuses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "plant_id", null: false
-    t.integer "status_type", default: 0, null: false
-    t.index ["plant_id"], name: "index_statuses_on_plant_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -151,9 +151,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
   add_foreign_key "favorites", "users"
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
+  add_foreign_key "plant_statuses", "plants"
   add_foreign_key "plants", "breeds"
   add_foreign_key "scent_ratings", "plants"
   add_foreign_key "scent_ratings", "users"
-  add_foreign_key "statuses", "plants"
   add_foreign_key "tags", "plants"
 end
