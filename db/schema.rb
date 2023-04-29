@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id", null: false
+    t.string "description"
+    t.boolean "is_deleted", default: false, null: false
     t.index ["category_id"], name: "index_breeds_on_category_id"
     t.index ["species_id"], name: "index_breeds_on_species_id"
   end
@@ -84,8 +86,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "variety_id"
     t.bigint "breed_id", null: false
     t.index ["breed_id"], name: "index_plants_on_breed_id"
   end
@@ -112,9 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
   create_table "species", force: :cascade do |t|
     t.string "latin_name"
     t.string "common_name"
-    t.string "breeder"
-    t.date "bred_date"
-    t.date "introduced_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -154,8 +151,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
   add_foreign_key "plants", "breeds"
-  add_foreign_key "plants", "users"
-  add_foreign_key "plants", "varieties"
   add_foreign_key "rose_statuses", "plants"
   add_foreign_key "scent_ratings", "plants"
   add_foreign_key "scent_ratings", "users"
