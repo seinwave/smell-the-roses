@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RoseStatusTest < ActiveSupport::TestCase
+class PlantTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

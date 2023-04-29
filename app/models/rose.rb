@@ -1,2 +1,0 @@
-class Rose < ApplicationRecord
-end

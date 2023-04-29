@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
+  # the breeds created for the garden
   create_table "breeds", force: :cascade do |t|
     t.string "name", null: false
     t.string "breeder"
@@ -53,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.index ["species_id"], name: "index_breeds_on_species_id"
   end
 
+  # "old world", "modern garden", "wild"
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -80,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
+  # the individual plants in the garden
   create_table "plants", force: :cascade do |t|
     t.float "location_x"
     t.float "location_y"
@@ -109,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
+  # actual scientific species name
   create_table "species", force: :cascade do |t|
     t.string "latin_name"
     t.string "common_name"
@@ -133,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.datetime "updated_at", null: false
   end
 
+  # "hybrid tea", "damask rose", etc
   create_table "varieties", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
