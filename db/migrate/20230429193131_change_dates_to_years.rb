@@ -1,8 +1,8 @@
 class ChangeDatesToYears < ActiveRecord::Migration[7.0]
   def change
-    change_column :breeds, :bred_date, :integer
-    change_column :breeds, :introduced_date, :integer
-    rename_column :breeds, :bred_date, :bred_year
-    rename_column :breeds, :introduced_date, :introduced_year
+    remove_column :breeds, :bred_date, :date
+    remove_column :breeds, :introduced_date, :date
+    add_column :breeds, :bred_year, :integer
+    add_column :breeds, :introduced_year, :integer
   end
 end
