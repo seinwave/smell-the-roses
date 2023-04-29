@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
-  # the breeds created for the garden
   create_table "breeds", force: :cascade do |t|
     t.string "name", null: false
     t.string "breeder"
@@ -54,7 +53,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.index ["species_id"], name: "index_breeds_on_species_id"
   end
 
-  # "old world", "modern garden", "wild"
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -82,7 +80,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
-  # the individual plants in the garden
   create_table "plants", force: :cascade do |t|
     t.float "location_x"
     t.float "location_y"
@@ -90,15 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "breed_id", null: false
+    t.integer "form", default: 0, null: false
     t.index ["breed_id"], name: "index_plants_on_breed_id"
-  end
-
-  create_table "rose_statuses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "plant_id", null: false
-    t.integer "status_type", default: 0, null: false
-    t.index ["plant_id"], name: "index_rose_statuses_on_plant_id"
   end
 
   create_table "scent_ratings", force: :cascade do |t|
@@ -112,12 +102,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
-  # actual scientific species name
   create_table "species", force: :cascade do |t|
     t.string "latin_name"
     t.string "common_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "plant_id", null: false
+    t.integer "status_type", default: 0, null: false
+    t.index ["plant_id"], name: "index_statuses_on_plant_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -137,7 +134,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
     t.datetime "updated_at", null: false
   end
 
-  # "hybrid tea", "damask rose", etc
   create_table "varieties", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -156,8 +152,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_160155) do
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
   add_foreign_key "plants", "breeds"
-  add_foreign_key "rose_statuses", "plants"
   add_foreign_key "scent_ratings", "plants"
   add_foreign_key "scent_ratings", "users"
+  add_foreign_key "statuses", "plants"
   add_foreign_key "tags", "plants"
 end
