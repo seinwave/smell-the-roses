@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_154057) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_155530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_154057) do
     t.bigint "species_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_breeds_on_category_id"
     t.index ["species_id"], name: "index_breeds_on_species_id"
   end
 
@@ -84,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_154057) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "variety_id"
+    t.bigint "breed_id", null: false
+    t.index ["breed_id"], name: "index_plants_on_breed_id"
   end
 
   create_table "rose_statuses", force: :cascade do |t|
@@ -143,11 +147,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_154057) do
   add_foreign_key "bloom_color_ratings", "users"
   add_foreign_key "bloom_quality_ratings", "plants"
   add_foreign_key "bloom_quality_ratings", "users"
+  add_foreign_key "breeds", "categories"
   add_foreign_key "breeds", "species"
   add_foreign_key "favorites", "plants"
   add_foreign_key "favorites", "users"
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
+  add_foreign_key "plants", "breeds"
   add_foreign_key "plants", "users"
   add_foreign_key "plants", "varieties"
   add_foreign_key "rose_statuses", "plants"
