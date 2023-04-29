@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,14 +41,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_161724) do
     t.string "breeder"
     t.string "primary_color"
     t.string "accent_color"
-    t.date "bred_date"
-    t.date "introduced_date"
     t.bigint "species_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id", null: false
     t.string "description"
     t.boolean "is_deleted", default: false, null: false
+    t.integer "bred_year"
+    t.integer "introduced_year"
     t.index ["category_id"], name: "index_breeds_on_category_id"
     t.index ["species_id"], name: "index_breeds_on_species_id"
   end
