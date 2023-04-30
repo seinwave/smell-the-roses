@@ -1,2 +1,2 @@
-class Variety < ApplicationRecord
+class CultivarGroup < ApplicationRecord
 end
