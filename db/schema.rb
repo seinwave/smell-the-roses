@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_30_140608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,12 +36,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
     t.check_constraint "rating >= 1 AND rating <= 5"
   end
 
-  create_table "breeds", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cultivar_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "category_id", null: false
+  end
+
+  create_table "cultivars", force: :cascade do |t|
     t.string "name", null: false
     t.string "breeder"
     t.string "primary_color"
     t.string "accent_color"
-    t.bigint "species_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id", null: false
@@ -49,15 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
     t.boolean "is_deleted", default: false, null: false
     t.integer "bred_year"
     t.integer "introduced_year"
-    t.index ["category_id"], name: "index_breeds_on_category_id"
-    t.index ["species_id"], name: "index_breeds_on_species_id"
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "cultivar_group_id", null: false
+    t.index ["category_id"], name: "index_cultivars_on_category_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -94,9 +101,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "breed_id", null: false
     t.integer "form", default: 0, null: false
-    t.index ["breed_id"], name: "index_plants_on_breed_id"
+    t.bigint "cultivar_id", null: false
+    t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
   end
 
   create_table "scent_ratings", force: :cascade do |t|
@@ -108,13 +115,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
     t.index ["plant_id"], name: "index_scent_ratings_on_plant_id"
     t.index ["user_id"], name: "index_scent_ratings_on_user_id"
     t.check_constraint "rating >= 1 AND rating <= 5"
-  end
-
-  create_table "species", force: :cascade do |t|
-    t.string "latin_name"
-    t.string "common_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -134,25 +134,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_193131) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "varieties", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "bloom_color_ratings", "plants"
   add_foreign_key "bloom_color_ratings", "users"
   add_foreign_key "bloom_quality_ratings", "plants"
   add_foreign_key "bloom_quality_ratings", "users"
-  add_foreign_key "breeds", "categories"
-  add_foreign_key "breeds", "species"
+  add_foreign_key "cultivars", "categories"
   add_foreign_key "favorites", "plants"
   add_foreign_key "favorites", "users"
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
   add_foreign_key "plant_statuses", "plants"
-  add_foreign_key "plants", "breeds"
+  add_foreign_key "plants", "cultivars"
   add_foreign_key "scent_ratings", "plants"
   add_foreign_key "scent_ratings", "users"
   add_foreign_key "tags", "plants"

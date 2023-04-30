@@ -1,6 +1,6 @@
 require "test_helper"
 
-class VarietyTest < ActiveSupport::TestCase
+class CultivarGroupTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
