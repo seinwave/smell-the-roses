@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_30_133228) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_30_140608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,9 +101,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_133228) do
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "breed_id", null: false
     t.integer "form", default: 0, null: false
-    t.index ["breed_id"], name: "index_plants_on_breed_id"
+    t.bigint "cultivar_id", null: false
+    t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
   end
 
   create_table "scent_ratings", force: :cascade do |t|
@@ -144,7 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_133228) do
   add_foreign_key "photos", "plants"
   add_foreign_key "photos", "users"
   add_foreign_key "plant_statuses", "plants"
-  add_foreign_key "plants", "cultivars", column: "breed_id"
+  add_foreign_key "plants", "cultivars"
   add_foreign_key "scent_ratings", "plants"
   add_foreign_key "scent_ratings", "users"
   add_foreign_key "tags", "plants"
