@@ -1,2 +1,2 @@
-class Breed < ApplicationRecord
+class Cultivar < ApplicationRecord
 end

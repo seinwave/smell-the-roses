@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_30_140608) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_30_215941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,13 +58,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_140608) do
     t.string "accent_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id", null: false
     t.string "description"
     t.boolean "is_deleted", default: false, null: false
     t.integer "bred_year"
     t.integer "introduced_year"
     t.integer "cultivar_group_id", null: false
-    t.index ["category_id"], name: "index_cultivars_on_category_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -138,7 +136,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_140608) do
   add_foreign_key "bloom_color_ratings", "users"
   add_foreign_key "bloom_quality_ratings", "plants"
   add_foreign_key "bloom_quality_ratings", "users"
-  add_foreign_key "cultivars", "categories"
   add_foreign_key "favorites", "plants"
   add_foreign_key "favorites", "users"
   add_foreign_key "photos", "plants"
