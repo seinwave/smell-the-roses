@@ -1,6 +1,7 @@
 require "test_helper"
 
-class BreedTest < ActiveSupport::TestCase
+class CultivarTest
+   < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
