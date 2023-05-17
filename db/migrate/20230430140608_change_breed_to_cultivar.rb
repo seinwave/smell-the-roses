@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeBreedToCultivar < ActiveRecord::Migration[7.0]
   def change
     remove_column :plants, :breed_id, :int
