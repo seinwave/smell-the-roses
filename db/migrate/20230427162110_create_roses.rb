@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRoses < ActiveRecord::Migration[7.0]
   def change
     create_table :roses do |t|
@@ -15,7 +17,6 @@ class CreateRoses < ActiveRecord::Migration[7.0]
   end
 
   def down
-  drop_table :roses
-end
-
+    drop_table :roses
+  end
 end

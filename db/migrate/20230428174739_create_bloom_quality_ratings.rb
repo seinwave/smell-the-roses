@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBloomQualityRatings < ActiveRecord::Migration[7.0]
   def change
     create_table :bloom_quality_ratings do |t|

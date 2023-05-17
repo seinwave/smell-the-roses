@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  root "roses#index"
-  
-  get "/roses", to: "roses#index"
+  root 'plants#index'
+
+  get '/plants', to: 'plants#index'
 end
