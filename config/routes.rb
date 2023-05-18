@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "roses#index"
+  root "plants#index"
   
-  get "/roses", to: "roses#index"
+  get "/plants", to: "plants#index"
+  get "/plant-statuses", to: "plant_statuses#index"
 end
