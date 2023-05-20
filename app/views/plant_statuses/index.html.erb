@@ -3,7 +3,7 @@
 <div>
   <% @plant_statuses.each do |plant_status| %>
   <div>
-    <h2><%= PlantStatus.statuses.key(status_type).to_s %></h2>
+    <h2><%= plant_status.status %></h2>
   </div>
   <% end %>
 </div>
