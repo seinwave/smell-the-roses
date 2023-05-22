@@ -4,6 +4,7 @@ RSpec.describe PlantStatus, type: :model do
   before(:all) do 
     @plant = create(:plant)
   end
+
   it 'should not save a status without a status entry' do
     status = PlantStatus.new
     expect(status.save).to eq(false)

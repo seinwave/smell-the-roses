@@ -8,9 +8,7 @@ RSpec.describe "PlantStatuses", type: :request do
     status.save
     expect(status.save).to eq(true)
     url = "URL TO VISIT", "/plant_statuses/#{status.id}"
-    puts url
     get "/plant_statuses/#{status.id}"
-
     expect(response).to have_http_status(:success)
     expect(response.body).to include("peak")
   end
