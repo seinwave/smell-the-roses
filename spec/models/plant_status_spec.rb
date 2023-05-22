@@ -16,8 +16,6 @@ RSpec.describe PlantStatus, type: :model do
     status = PlantStatus.new
     status.status = 0
     status.plant_id = 1
-
-    puts "PLANT:",  Plant.find(1)
     expect(status.save).to eq(true)
   end
 end

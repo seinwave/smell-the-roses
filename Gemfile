@@ -9,6 +9,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 # rspec
 group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails'
 end
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
