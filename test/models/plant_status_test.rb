@@ -1,7 +1,8 @@
 require "test_helper"
 
 class StatusTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not save a status without a status entry" do
+    status = Status.new
+    assert_not status.save
+  end
 end
