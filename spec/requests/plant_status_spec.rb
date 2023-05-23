@@ -23,7 +23,12 @@ RSpec.describe 'PlantStatuses', type: :request do
 
     context 'editing a plant_status' do
       it 'should update a selected status' do
-        get "/plant_statuses/1/edit"
+        status = PlantStatus.new
+        status.status = 0
+        status.plant_id = 1
+        status.save
+        puts "STATUS:", status.id
+        get "/plant_statuses/#{status.id}/edit"
         response.should be_success
       end
     end
