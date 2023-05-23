@@ -28,13 +28,14 @@ class PlantStatusesController < ApplicationController
     @plant_status = PlantStatus.find(params[:id])
 
     if @plant_status.update(plant_status_params)
-        redirect_to @plant_status
+      redirect_to @plant_status
     else
-        render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   private
+
   def plant_status_params
     params.require(:plant_status).permit(:status, :plant_id)
   end
