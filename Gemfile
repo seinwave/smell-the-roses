@@ -1,16 +1,16 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+# Rubocop
+gem 'rubocop'
+gem 'rubocop-erb'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
-
-# rspec
-group :development, :test do
-  gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 6.0.0'
-end
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'

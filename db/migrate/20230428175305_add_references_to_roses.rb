@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddReferencesToRoses < ActiveRecord::Migration[7.0]
   def change
     add_column :roses, :user_id, :integer

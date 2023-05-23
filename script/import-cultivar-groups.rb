@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 csv_file_path = '/Users/matt/projects/smell-the-roses/script/rose-garden-plants.csv'
