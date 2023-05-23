@@ -9,10 +9,8 @@ CSV.foreach(csv_file_path, headers: true) do |row|
   cultivar_group_name.gsub!(/rose/, '').strip! if cultivar_group_name.include?('rose')
 
   category_id = 1
-  if ['gallica', 'damask', 'centifolia', 'moss', 'portland', 'alba', 'rambler', 'bourbon', 'hybrid perpetual',
-      'noisette', 'china', 'tea'].include?(cultivar_group_name)
-    category_id = 2
-  end
+  category_id = 2 if ['gallica', 'damask', 'centifolia', 'moss', 'portland', 'alba', 'rambler', 'bourbon',
+                      'hybrid perpetual', 'noisette', 'china', 'tea'].include?(cultivar_group_name)
   category_id = 3 if %w[found wild species].include?(cultivar_group_name)
 
   next if CultivarGroup.exists?(name: cultivar_group_name)

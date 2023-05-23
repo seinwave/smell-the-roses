@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_430_215_941) do
+ActiveRecord::Schema[7.0].define(version: 20_230_520_131_932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -91,13 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 20_230_430_215_941) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.bigint 'plant_id', null: false
-    t.integer 'status_type', default: 0, null: false
+    t.integer 'status', default: 0, null: false
     t.index ['plant_id'], name: 'index_plant_statuses_on_plant_id'
   end
 
   create_table 'plants', force: :cascade do |t|
-    t.float 'location_x'
-    t.float 'location_y'
+    t.integer 'location_x'
+    t.integer 'location_y'
     t.boolean 'is_deleted'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -122,7 +122,9 @@ ActiveRecord::Schema[7.0].define(version: 20_230_430_215_941) do
     t.bigint 'plant_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'user_id', null: false
     t.index ['plant_id'], name: 'index_tags_on_plant_id'
+    t.index ['user_id'], name: 'index_tags_on_user_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -147,4 +149,5 @@ ActiveRecord::Schema[7.0].define(version: 20_230_430_215_941) do
   add_foreign_key 'scent_ratings', 'plants'
   add_foreign_key 'scent_ratings', 'users'
   add_foreign_key 'tags', 'plants'
+  add_foreign_key 'tags', 'users'
 end

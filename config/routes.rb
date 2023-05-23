@@ -3,5 +3,6 @@
 Rails.application.routes.draw do
   root 'plants#index'
 
-  get '/plants', to: 'plants#index'
+  resources :plants
+  resources :plant_statuses
 end
