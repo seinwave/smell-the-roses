@@ -22,7 +22,17 @@ class PlantStatusesController < ApplicationController
 
   def edit
     @plant_status = PlantStatus.find(params[:id])
-  end 
+  end
+
+  def update
+    @plant_status = PlantStatus.find(params[:id])
+
+    if @plant_status.update(plant_status_params)
+        redirect_to @plant_status
+    else
+        render :edit, status: :unprocessable_entity
+    end
+  end
 
   private
   def plant_status_params
