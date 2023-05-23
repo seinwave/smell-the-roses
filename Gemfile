@@ -5,6 +5,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+# rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails', '~> 6.2'
+end
+
+
+
 # Rubocop
 gem 'rubocop'
 gem 'rubocop-erb'
@@ -77,4 +85,3 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'factory_bot', '~> 6.2'
