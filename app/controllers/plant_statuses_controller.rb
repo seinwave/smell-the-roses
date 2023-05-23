@@ -34,6 +34,13 @@ class PlantStatusesController < ApplicationController
     end
   end
 
+  def destroy
+    @plant_status = PlantStatus.find(params[:id])
+    @plant_status.destroy
+
+    redirect_to plant_statuses_path, status: :see_other
+  end
+
   private
 
   def plant_status_params
