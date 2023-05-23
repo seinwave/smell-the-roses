@@ -27,9 +27,8 @@ RSpec.describe 'PlantStatuses', type: :request do
         status.status = 0
         status.plant_id = 1
         status.save
-        puts "STATUS:", status.id
         get "/plant_statuses/#{status.id}/edit"
-        response.should be_success
+        expect(response.body).to include('editing')
       end
     end
   end
