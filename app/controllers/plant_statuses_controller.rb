@@ -20,8 +20,11 @@ class PlantStatusesController < ApplicationController
     end
   end
 
-  private
+  def edit
+    @plant_status = PlantStatus.find(params[:id])
+  end 
 
+  private
   def plant_status_params
     params.require(:plant_status).permit(:status, :plant_id)
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'PlantStatuses', type: :request do
@@ -17,6 +19,13 @@ RSpec.describe 'PlantStatuses', type: :request do
       get "/plant_statuses/#{status.id}"
       expect(response).to have_http_status(:success)
       expect(response.body).to include('peak')
+    end
+
+    context 'editing a plant_status' do
+      it 'should update a selected status' do
+        get "/plant_statuses/1/edit"
+        response.should be_success
+      end
     end
   end
 
@@ -44,12 +53,4 @@ RSpec.describe 'PlantStatuses', type: :request do
       end
     end
   end
-
-  # it 'should update a selected status' do
-  #   parameters = { status_id: 1, status: 'budding' }
-  #   post "/plant_statuses", params: parameters
-  #   expect(response).to have_http_status(:redirect)
-  #   expect(PlantStatus.count).to eq(1)
-  #   expect(PlantStatus.last.status).to eq("peak")
-  # end
 end
