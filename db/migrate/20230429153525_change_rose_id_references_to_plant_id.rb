@@ -7,5 +7,5 @@ class ChangeRoseIdReferencesToPlantId < ActiveRecord::Migration[7.0]
     rename_column :rose_statuses, :rose_id, :plant_id
     rename_column :scent_ratings, :rose_id, :plant_id
     rename_column :tags, :rose_id, :plant_id
-    end
+  end
 end

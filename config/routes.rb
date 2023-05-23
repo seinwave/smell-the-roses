@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root "plants#index"
-  
+  root 'plants#index'
+
   resources :plants
   resources :plant_statuses
 end

@@ -16,6 +16,5 @@ CSV.foreach(csv_file_path, headers: true) do |row|
 
   cultivar.cultivar_group_id = cultivar_group.id
 
-
   cultivar.save!
 end

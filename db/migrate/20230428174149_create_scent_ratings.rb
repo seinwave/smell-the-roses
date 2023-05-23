@@ -6,7 +6,6 @@ class CreateScentRatings < ActiveRecord::Migration[7.0]
       t.integer :rating, null: false, default: 1
       t.check_constraint 'rating >= 1 AND rating <= 5'
 
-
       t.timestamps
     end
   end

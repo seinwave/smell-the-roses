@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PlantStatus, type: :model do
-  before(:all) do 
+  before(:all) do
     @plant = create(:plant)
   end
 
@@ -14,7 +14,7 @@ RSpec.describe PlantStatus, type: :model do
     status = PlantStatus.new
     status.status = 0
     expect(status.save).to eq(false)
-  end 
+  end
 
   it 'should save, with a status and plant_id' do
     status = PlantStatus.new

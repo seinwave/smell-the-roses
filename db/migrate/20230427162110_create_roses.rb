@@ -15,7 +15,6 @@ class CreateRoses < ActiveRecord::Migration[7.0]
   end
 
   def down
-  drop_table :roses
-end
-
+    drop_table :roses
+  end
 end
