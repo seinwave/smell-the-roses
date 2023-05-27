@@ -13,6 +13,9 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
+# google search initializer -- contains API keys
+config/initializers/google_search.rb
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
