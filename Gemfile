@@ -16,6 +16,11 @@ group :development do
   gem 'google_custom_search_api', '~> 2.0'
 end
 
+# env variables 
+group :development, :test do
+  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+end
+
 
 # Rubocop
 gem 'rubocop'
