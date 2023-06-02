@@ -11,6 +11,16 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
 end
 
+# google custom search api
+group :development do
+  gem 'google_custom_search_api', '~> 2.0'
+  gem 'rails_dominant_colors', path: '../rails_dominant_colors'
+end
+
+# env variables 
+group :development, :test do
+  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+end
 
 
 # Rubocop

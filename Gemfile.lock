@@ -1,3 +1,9 @@
+PATH
+  remote: ../rails_dominant_colors
+  specs:
+    rails_dominant_colors (0.2.0)
+      mini_magick (~> 4.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -96,6 +102,10 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -104,6 +114,12 @@ GEM
       railties (>= 5.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    google_custom_search_api (2.0.0)
+      addressable
+      httparty
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.6)
@@ -127,9 +143,11 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mini_magick (4.12.0)
     mini_mime (1.1.2)
     minitest (5.18.0)
     msgpack (1.7.0)
+    multi_xml (0.6.0)
     net-imap (0.3.4)
       date
       net-protocol
@@ -267,12 +285,15 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  dotenv-rails (~> 2.7, >= 2.7.6)
   factory_bot_rails (~> 6.2)
+  google_custom_search_api (~> 2.0)
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
+  rails_dominant_colors!
   redis (~> 4.0)
   rspec-rails (~> 6.0.0)
   rubocop
