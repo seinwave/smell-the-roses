@@ -29,6 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_190458) do
     t.integer "category_id", null: false
   end
 
+  #todo: maybe break colors into separate cultivar-color table?
+  #todo: research pros and cons
   create_table "cultivars", force: :cascade do |t|
     t.string "name", null: false
     t.string "breeder"
