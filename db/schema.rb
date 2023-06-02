@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_190458) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_173928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_190458) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cultivar_colors", force: :cascade do |t|
+    t.bigint "cultivar_id", null: false
+    t.string "primary_color"
+    t.string "accent_color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cultivar_id"], name: "index_cultivar_colors_on_cultivar_id"
   end
 
   create_table "cultivar_groups", force: :cascade do |t|
@@ -32,8 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_190458) do
   create_table "cultivars", force: :cascade do |t|
     t.string "name", null: false
     t.string "breeder"
-    t.string "primary_color"
-    t.string "accent_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
@@ -62,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_190458) do
     t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
   end
 
+  add_foreign_key "cultivar_colors", "cultivars"
   add_foreign_key "plant_statuses", "plants"
   add_foreign_key "plants", "cultivars"
 end
