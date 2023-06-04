@@ -5,45 +5,70 @@ require 'csv'
 cultivars = Cultivar.all
 
 def filter_out_invalid_links(item)
-  !check_is_webp(item.link) && !check_is_spotify(item.link) 
+  link = item.link
+  return false if check_is_shopify(link)
+  return false if check_is_webp(link)
+  return false if check_is_not_https(link)
+  return true
 end
 
 def check_is_webp(link)
-  link.split('.')[-1] == 'webp'
+  return link.split('.')[-1] == 'webp'
 end
 
-# shopify links don't work
-def check_is_spotify(link)
+# shopify links don't work (gatekeeping)
+def check_is_shopify(link)
     uri = URI(link)
     puts uri
     host = uri.host
     return host == 'cdn.shopify.com' || host == 'shopify.com'
 end
 
+def check_is_not_https(link)
+  return link.split(':')[0] != 'https'
+end
 
-#todo: how to keep writing to file, and resume scraping from last sucessfully scraped one
+def hsl_to_string(hsl)
+  return "" if hsl.nil?
+  return "hsl(#{hsl.join(",")})"
+end
 
 cultivars.each do |cultivar|
 
     puts 'CULTIVAR, ID:', cultivar.name, cultivar.id
-    
+    #skip if there is already a CultivarColor entry for this cultivar
+    next if !CultivarColor.where(cultivar: cultivar).empty?
+
     results = GoogleCustomSearchApi.search("rose #{cultivar.name}", {searchType: "image"})
+    if results["items"].nil? || results["items"].empty?
+      puts "NO RESULTS"
+      next
+    end 
+
     safe_link = results["items"].detect{|item| filter_out_invalid_links(item) }.link
 
-    puts "LINK:", safe_link
+    next if safe_link.nil?
+    next if safe_link == ""
 
-    colors = RailsDominantColors.url(safe_link, 5)
+    begin 
+      colors = RailsDominantColors.url(safe_link, 5)
 
-    puts "COLORS:", colors
-
-    colors.to_hsl.delete_if { |color| color[0] > 60 && color[0] < 180 }
-
-    hsl_colors = colors.to_hsl
-
-    output_path = './script/rose-colors.csv'
-    CSV.open(output_path, "wb") do |csv|
-        csv << ["cultivar_name", "cultivar_id", "color_0", "color_1", "color_2", "image_link"]
-        csv << [cultivar.name, cultivar.id, hsl_colors[0], hsl_colors[1], hsl_colors[2], safe_link]
+    
+    rescue => exception
+      puts "EXCEPTION:", exception   
+      next
     end
+
+    colors = colors.to_hsl.delete_if { |color| color[0] > 60 && color[0] < 180 }
+
+
+  
+    primary_color = hsl_to_string(colors[0])
+    accent_color = hsl_to_string(colors[1])
+
+    puts primary_color, accent_color
+
+    CultivarColor.create(cultivar: cultivar, primary_color: primary_color, accent_color: accent_color)
+
 
 end
