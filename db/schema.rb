@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_02_174759) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_175858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,10 +23,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_174759) do
 
   create_table "cultivar_colors", force: :cascade do |t|
     t.bigint "cultivar_id", null: false
-    t.string "primary_color"
-    t.string "accent_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "approximate_color", default: 0, null: false
+    t.string "hsl_value"
     t.index ["cultivar_id"], name: "index_cultivar_colors_on_cultivar_id"
   end
 
