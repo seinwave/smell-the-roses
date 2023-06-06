@@ -11,7 +11,8 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
 end
 
-
+# d3
+gem 'd3-rails'
 
 # Rubocop
 gem 'rubocop'
