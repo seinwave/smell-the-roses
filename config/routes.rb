@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   resources :plants
   resources :plant_statuses
+  resources :cultivar_colors
 end

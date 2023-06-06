@@ -1,0 +1,9 @@
+<h1>PLANT COLORS</h1>
+
+<div>
+  <% @cultivar_colors.each do |cultivar_color| %>
+  <div>
+    <h2><%= link_to cultivar_color.id, cultivar_color %></h2>
+  </div>
+  <% end %>
+</div>

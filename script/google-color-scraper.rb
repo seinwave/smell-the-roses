@@ -2,7 +2,7 @@ require 'google_custom_search_api'
 require 'rails_dominant_colors'
 require 'csv'
  
-cultivars = Cultivar.all
+cultivars = Cultivar.first(40)
 
 def filter_out_invalid_links(item)
   link = item.link
