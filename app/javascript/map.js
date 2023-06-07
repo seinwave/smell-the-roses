@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 window.onload = function () {
   const svg = document.getElementById('garden-segment');
 
@@ -26,3 +28,15 @@ window.onload = function () {
     }
   }
 };
+
+var svg = d3.select('garden-segment'),
+  width = +svg.attr('width'),
+  height = +svg.attr('height');
+
+var zoom = d3.zoom().scaleExtent([1, 10]).on('zoom', zoomed);
+
+svg.call(zoom);
+
+function zoomed() {
+  svg.attr('transform', d3.event.transform);
+}
