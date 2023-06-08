@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   resources :plants
   resources :plant_statuses
+
+  resources :map
 end
