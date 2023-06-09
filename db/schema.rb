@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_185133) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_141416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_185133) do
     t.bigint "cultivar_id", null: false
     t.string "sector"
     t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string "name", null: false
+    t.jsonb "coordinates", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "cultivar_colors", "cultivars"
