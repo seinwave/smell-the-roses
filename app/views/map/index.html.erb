@@ -1,3 +1,8 @@
-<%= javascript_import_module_tag "map" %>
+<ol>
+  <% @sectors.each do |sector| %>
+  <div>
+    <li><%= sector.id %></li>
+  </div>
 
-<div class="garden-container"></div>
+  <% end %>
+</ol>
