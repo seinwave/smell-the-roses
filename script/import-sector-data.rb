@@ -18,7 +18,7 @@ Dir.children(dir_name).each do |file_name|
         puts "sector #{sector} not found"
         next
     end
-    sector_name = sector[0]['properties']['Name'].gsub("-sector", "")
+    sector_name = sector[0]['properties']['Name'].gsub("-sector", "").gsub("\n", "")
 
     if Sector.find_by(name: sector_name).present? && Sector.find_by(name: sector_name).geojson_string.nil?
         Sector.find_by(name: sector_name).update(geojson_string: sector.to_s)
@@ -32,28 +32,17 @@ Dir.children(dir_name).each do |file_name|
         name: sector_name,
         coordinates: sector[0]['geometry']['coordinates'],
         geojson_string: sector.to_s)
+
+    data['features'].each do |feature| 
+
+        # skip if the feature is a sector
+        next if feature['properties']['Name'] =~ /[a-z][0-9]-sector/
+
+        
+    end
    
 end
 
-# File.open(File.join(dir_name, file_name), "r") do |file|
-
-#     puts file
-
-# data = JSON.parse(file)
-
-# # the sector name is the feature with a 'Name' property that matches the regex /[a-z][0-9]-sector/
-# sector_name = data['features'].select {|feature| feature['properties']['Name'] =~ /[a-z][0-9]-sector/}
-# puts "FILE:", file_name
-# puts sector_name
-# end 
-
-
-# sector_b3 = data['features'].select {|feature| feature['properties']['Name'] == "b3-sector"}
-
-# Sector.create(
-#     name: "b3",
-#     coordinates: sector_b3[0]['geometry']['coordinates'])
-    
 
 
 
