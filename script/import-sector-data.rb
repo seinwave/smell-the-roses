@@ -59,21 +59,14 @@ Dir.children(dir_name).each do |file_name|
         cultivar = Cultivar.where("name ILIKE ?", "%#{name}%").first
         sector_id = Sector.find_by(name: sector_name).id
 
-        if cultivar.nil?    
-
-             
-    # t.float "latitude"
-    # t.float "longitude"
-    # t.boolean "is_deleted"
-    # t.datetime "created_at", null: false
-    # t.datetime "updated_at", null: false
-    # t.integer "form", default: 0, null: false
-    # t.bigint "cultivar_id", null: false
-    # t.bigint "sector_id", null: false
-    # t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
-    # t.index ["sector_id"], name: "index_plants_on_sector_id"
-
-            # save name, sector_id, and coordinates to a FailedPlant entry
+        if cultivar.nil?
+            puts "Cultivar not found for #{name} -- creating entry in PlantFailures table"
+            PlantFailure.create(
+                name: name,
+                longitude: feature['geometry']['coordinates'][0],
+                latitude: feature['geometry']['coordinates'][1],
+                sector_id: sector_id
+            )    
             next 
         end 
 
