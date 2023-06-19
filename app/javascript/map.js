@@ -42,7 +42,6 @@ svg.append('path').datum(geojson).attr('d', path);
 
 svg.attr('fill', 'none').attr('stroke', 'black');
 
-//TODO: are coordinates saved in the wrong order in the db?
 plants.forEach((plant) => {
   const lat = plant.latitude;
   const long = plant.longitude;
