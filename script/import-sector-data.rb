@@ -1,12 +1,5 @@
 require 'json'
 
-
-# read all the file names in the script/sector dir
-
-# if a filename corresponds to a Sector name, ignore it
-
-# otherwise, input the data into the database
-
 dir_name = "script/sectors"
 
 def get_safe_feature_name(feature)
