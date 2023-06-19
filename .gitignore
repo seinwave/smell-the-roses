@@ -17,6 +17,7 @@ pickle-email-*.html
 *.csv
 *.json
 *.geojson
+script/sectors
 
 # Ignore all logfiles and tempfiles.
 /log/*
