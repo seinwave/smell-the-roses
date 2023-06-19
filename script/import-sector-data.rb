@@ -11,16 +11,28 @@ dir_name = "script/sectors"
 
 
 Dir.children(dir_name).each do |file_name|
-    puts file_name
     data = JSON.parse(File.read(File.join(dir_name, file_name)))
     sector = data['features'].select {|feature| feature['properties']['Name'] =~ /[a-z][0-9]-sector/}
+    puts "SECTOR:", sector
     if(sector.empty?)
         puts "sector #{sector} not found"
         next
     end
-    puts sector
     sector_name = sector[0]['properties']['Name'].gsub("-sector", "")
-    puts sector_name
+
+    if Sector.find_by(name: sector_name).present? && Sector.find_by(name: sector_name).geojson_string.nil?
+        Sector.find_by(name: sector_name).update(geojson_string: sector.to_s)
+        next
+    elsif Sector.find_by(name: sector_name).present?
+        next 
+    end
+
+
+    Sector.create(
+        name: sector_name,
+        coordinates: sector[0]['geometry']['coordinates'],
+        geojson_string: sector.to_s)
+   
 end
 
 # File.open(File.join(dir_name, file_name), "r") do |file|
