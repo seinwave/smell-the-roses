@@ -72,6 +72,12 @@ Dir.children(dir_name).each do |file_name|
 
         cultivar_id = cultivar.id
 
+        # if the plant already exists (same lat and long), skip it
+        if Plant.find_by(latitude: feature['geometry']['coordinates'][1], longitude: feature['geometry']['coordinates'][0]).present?
+           puts "PLANT ALREADY EXISTS, SKIPPING #{name}"
+           next 
+        end
+
         puts "Creating plant #{name}"
 
         Plant.create(
@@ -81,66 +87,5 @@ Dir.children(dir_name).each do |file_name|
             sector_id: sector_id
         )
     end
-   
-    # append each failed item to the failed file, without overwriting existing entries
-    File.open("script/failed.json", "a") do |f|
-        f.write(",\n")
-        f.write(failed.to_json)
-    end
-    
-    # append each missing cultivar name to the cultivars_to_add file, without overwriting existing entries
-    File.open("script/cultivars_to_add.json", "w") do |f|
-        f.write(cultivar_names_to_add.to_json)
-    end
 end
-
-
-
-
-
-
-# data['features'].each do |plant|
-#    name = plant['properties']['Name'].gsub("\n", "")
-
-#    name = "marie pavié" if name.include? "marie par"
-
-#    name = "frau karl druschki" if name.include? "frau"
-
-#    next if name.include? "b3"
-   
-#    cultivar = Cultivar.where("name ILIKE ?", "%#{name}%").first
-#    sector_id = Sector.find_by(name: "b3").id
-
-   
-
-#    if cultivar.nil?
-#         plant['properties']['Name'] = name
-#         failed << plant
-#         cultivar_names_to_add << name
-#         next
-#    end 
-
-#    cultivar_id = cultivar.id
-
-#    puts "creating plant #{name}"
-
-#    Plant.create(
-#          cultivar_id: cultivar_id,
-#          latitude: plant['geometry']['coordinates'][1],
-#          longitude: plant['geometry']['coordinates'][0],
-#          sector_id: sector_id
-#    )
-
-# end 
-
-
-# # append each failed item to the failed file, without overwriting existing entries
-# File.open("script/failed.json", "a") do |f|
-#     f.write(failed.to_json)
-# end
-
-# # append each missing cultivar name to the cultivars_to_add file, without overwriting existing entries
-# File.open("script/cultivars_to_add.json", "w") do |f|
-#     f.write(cultivar_names_to_add.to_json)
-# end
 
