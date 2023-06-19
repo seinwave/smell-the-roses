@@ -50,7 +50,7 @@ Dir.children(dir_name).each do |file_name|
         puts 'PROCESSING FEATURE', feature['properties']['Name']
 
         # skip if the feature is a sector
-        puts "IS A SECTOR? #{is_sector(feature)}"
+        puts "Feature is a sector, skipping"
         next if is_sector(feature)
 
         plant_name = get_safe_feature_name(feature)
@@ -58,7 +58,6 @@ Dir.children(dir_name).each do |file_name|
         cultivar = Cultivar.where("name ILIKE ?", "%#{plant_name}%").first
         sector_id = Sector.find_by(name: sector_name).id
 
-        puts "CULTIVAR: #{cultivar}, SECTOR ID: #{sector_id}"
 
         if cultivar.nil?
             puts "Cultivar not found for #{plant_name} -- creating entry in PlantFailures table"
