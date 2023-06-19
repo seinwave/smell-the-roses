@@ -64,7 +64,6 @@ Dir.children(dir_name).each do |file_name|
 
         Plant.create(
             cultivar_id: cultivar_id,
-            #TODO: should i reverse these coordinates?
             latitude: feature['geometry']['coordinates'][1],
             longitude: feature['geometry']['coordinates'][0],
             sector_id: sector_id
