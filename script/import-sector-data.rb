@@ -9,38 +9,47 @@ require 'json'
 
 dir_name = "script/sectors"
 
+def get_sector_name(sector)
+    return sector[0]['properties']['Name'].gsub("-sector", "").gsub("\n", "")
+end
+
+def create_sector(sector)
+    sector_name = get_sector_name(sector)
+    if sector.empty?
+        puts 'sector not found'
+        return 
+    elsif Sector.find_by(name:name).present?
+        puts 'sector already exists'
+        return
+    else Sector.create(
+            name: name,
+            coordinates: sector[0]['geometry']['coordinates'],
+            geojson_string: sector.to_s)
+            puts 'sector created, starting plant loop'
+    end
+
+end 
+
 
 
 Dir.children(dir_name).each do |file_name|
     failed = []
     cultivar_names_to_add = []
 
+    puts 'READING SECTOR FILE', file_name
+
     # FIRST: create the sector, if it doesn't exist
     data = JSON.parse(File.read(File.join(dir_name, file_name)))
     sector = data['features'].select {|feature| feature['properties']['Name'] =~ /[a-z][0-9]-sector/}
- 
-    if(sector.empty?)
-        puts "sector #{sector} not found"
-        next
-    end
+    
+    create_sector(sector)
 
-    sector_name = sector[0]['properties']['Name'].gsub("-sector", "").gsub("\n", "")
-
-    if Sector.find_by(name: sector_name).present? && Sector.find_by(name: sector_name).geojson_string.nil?
-        Sector.find_by(name: sector_name).update(geojson_string: sector.to_s)
-        next
-    elsif Sector.find_by(name: sector_name).present?
-        next 
-    end
-
-    Sector.create(
-        name: sector_name,
-        coordinates: sector[0]['geometry']['coordinates'],
-        geojson_string: sector.to_s)
-
-
+    sector_name = get_sector_name(sector)
+  
     # SECOND: create plant entries for each plant in the sector
     data['features'].each do |feature| 
+
+        puts 'PROCESSING FEATURE', feature['properties']['Name']
 
         # skip if the feature is a sector
         next if feature['properties']['Name'] =~ /[a-z][0-9]-sector/
@@ -51,10 +60,20 @@ Dir.children(dir_name).each do |file_name|
         sector_id = Sector.find_by(name: sector_name).id
 
         if cultivar.nil?    
-            #don't remember why i'm doing this
-            feature['properties']['Name'] = name
-            failed << plant
-            cultivar_names_to_add << name
+
+             
+    # t.float "latitude"
+    # t.float "longitude"
+    # t.boolean "is_deleted"
+    # t.datetime "created_at", null: false
+    # t.datetime "updated_at", null: false
+    # t.integer "form", default: 0, null: false
+    # t.bigint "cultivar_id", null: false
+    # t.bigint "sector_id", null: false
+    # t.index ["cultivar_id"], name: "index_plants_on_cultivar_id"
+    # t.index ["sector_id"], name: "index_plants_on_sector_id"
+
+            # save name, sector_id, and coordinates to a FailedPlant entry
             next 
         end 
 
@@ -68,21 +87,21 @@ Dir.children(dir_name).each do |file_name|
             longitude: feature['geometry']['coordinates'][0],
             sector_id: sector_id
         )
-        
     end
    
+    # append each failed item to the failed file, without overwriting existing entries
+    File.open("script/failed.json", "a") do |f|
+        f.write(",\n")
+        f.write(failed.to_json)
+    end
+    
+    # append each missing cultivar name to the cultivars_to_add file, without overwriting existing entries
+    File.open("script/cultivars_to_add.json", "w") do |f|
+        f.write(cultivar_names_to_add.to_json)
+    end
 end
 
 
-# append each failed item to the failed file, without overwriting existing entries
-File.open("script/failed.json", "a") do |f|
-    f.write(failed.to_json)
-end
-
-# append each missing cultivar name to the cultivars_to_add file, without overwriting existing entries
-File.open("script/cultivars_to_add.json", "w") do |f|
-    f.write(cultivar_names_to_add.to_json)
-end
 
 
 
