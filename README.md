@@ -32,6 +32,17 @@ Good frontend framework is good.
 
 ## Where'd your data come from?
 
+From the grace and two feet of my colleagues at the Recurse Center!
+
 ## Is this, like, _official_ official?
 
+Ha ha, not yet. But the day is young.
+
 ## Thank you to my helpers!
+
+Kathrin
+Anisha
+Jesse
+Raunak
+Jing
+Vijith
