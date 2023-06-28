@@ -1,24 +1,37 @@
-# README
+# Smell The Roses
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## What is this?
 
-Things you may want to cover:
+This is an interactive map of the rose garden at Brooklyn Botanic Gardens.
 
-* Ruby version
+## Why is this?
 
-* System dependencies
+## Hit me with some fun facts!
 
-* Configuration
+957 cultivars!
 
-* Database creation
+5000+ individual blossoms!
 
-* Database initialization
+XX acres -- making it one of the largest rose gardens in the world
 
-* How to run the test suite
+XXX visitors every summer!
 
-* Services (job queues, cache servers, search engines, etc.)
+## What's the tech?
 
-* Deployment instructions
+The back end is in Rails, the front end in React, all deployed on render.
 
-* ...
+### Why Rails?
+
+First, for the education. Never built a full-fledged Rails app before.
+
+Second, because it's the right tool for the job. Rails excels at managing an evolving data model, and making searches, transactions, updates really easy and fluid. A rose map is, after all, a modestly heavy CRUD app. Perfect fit for Rails!
+
+### Why React?
+
+Good frontend framework is good.
+
+## Where'd your data come from?
+
+## Is this, like, _official_ official?
+
+## Thank you to my helpers!
