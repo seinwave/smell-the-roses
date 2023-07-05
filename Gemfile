@@ -15,6 +15,7 @@ end
 # assset pipeline
 gem 'propshaft'
 gem 'importmap-rails'
+gem 'jsbundling-rails'
 
 # d3
 gem 'd3-rails'
