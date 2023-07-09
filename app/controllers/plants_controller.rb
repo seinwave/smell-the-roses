@@ -6,4 +6,9 @@ class PlantsController < ApplicationController
     @cultivars = Cultivar.all
     @cultivargroups = CultivarGroup.all
   end
+
+  def show
+    @plant = Plant.find(params[:id])
+    render json: @plant 
+  end 
 end
