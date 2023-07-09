@@ -1,10 +1,12 @@
-class PlantStatusesController < ApplicationController
+class PlantStatusesController < ApiController
   def index
     @plant_statuses = PlantStatus.all
+    render json: @plant_statuses
   end
 
   def show
     @plant_status = PlantStatus.find(params[:id])
+    render json: @plant_status
   end
 
   def new
