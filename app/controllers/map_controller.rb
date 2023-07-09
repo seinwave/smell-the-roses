@@ -3,6 +3,7 @@ class MapController < ApiController
     def index 
     @plants = Plant.all
     @sectors = Sector.all
+    render json: @plants
 
     end 
 
